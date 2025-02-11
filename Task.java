@@ -1,58 +1,52 @@
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Task {
     private int id;
+    private static int lastId;
     private String description;
     private Status status;
-    private Date createdAt;
-    private Date updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    public Task(int id, String description, Status status, Date createdAt, Date updatedAt) {
-        this.id = id;
+    /**
+     * Task Constructor
+     * @param description
+     */
+    public Task(String description) {
+        this.id = ++lastId;
         this.description = description;
-        this.status = status;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.status = Status.TO_DO;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    /**
+     * Mark Task As In Progress
+     */
+    public void markTaskInProgress() {
+        this.status = Status.IN_PROGRESS;
+        this.updatedAt = LocalDateTime.now();
     }
 
-    public String getDescription() {
-        return description;
+    /**
+     * Mark Task As Done
+     */
+    public void markTaskDone() {
+        this.status = Status.DONE;
+        this.updatedAt = LocalDateTime.now();
     }
 
-    public void setDescription(String description) {
+    /**
+     * Updates Description From User Input
+     * @param description
+     */
+    public void updateTaskDescription(String description) {
         this.description = description;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+        this.updatedAt = LocalDateTime.now();
     }
 
 }
